@@ -2,6 +2,8 @@ package org.example.model;
 
 import org.example.interfaces.IVendingMachine;
 
+import java.util.Optional;
+
 public class VendingMachine implements IVendingMachine {
     private Product[] products;
     private int depositPool;
@@ -53,7 +55,7 @@ public class VendingMachine implements IVendingMachine {
                 found = true;
             }
         }
-        String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 ";
+        String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 your current amount is: " + currentBalance;
 
         System.out.println(result);
     }
@@ -85,17 +87,22 @@ public class VendingMachine implements IVendingMachine {
 
     @Override
     public int endSession() {
+        int oldBalance = getBalance();
         setDepositPool(0);
         if (getBalance() != 0) {
-            return getBalance();
+            return oldBalance;
         }
-        setDepositPool(0);
         return getBalance();
     }
 
     @Override
     public String getDescription(int id) {
-        return "";
+        for (Product product : this.products) {
+            if (product.getId() == id) {
+                return product.toString();
+            }
+        }
+        return "Product not found";
     }
 
     @Override
