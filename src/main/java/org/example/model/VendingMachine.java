@@ -5,15 +5,15 @@ import org.example.interfaces.IVendingMachine;
 public class VendingMachine implements IVendingMachine {
     private Product[] products;
     private int depositPool;
-    private int[] validAmountOfMoney = {1, 2, 5, 10, 20, 50, 100, 200, 500, 1000};
-
-    public VendingMachine() {
-        this(new Product[0]);
-    }
+    private final int[] validAmountOfMoney = {1, 2, 5, 10, 20, 50, 100, 200, 500, 1000};
 
     public VendingMachine(Product[] products) {
         setDepositPool(depositPool);
         setProducts(products != null ? products : new Product[0]);
+    }
+
+    public VendingMachine() {
+        this(new Product[0]);
     }
 
     public void addProductsToMachine(Product productToAdd) {
@@ -30,7 +30,7 @@ public class VendingMachine implements IVendingMachine {
         this.products = products;
     }
 
-    public void setDepositPool(int depositPool) {
+    private void setDepositPool(int depositPool) {
         this.depositPool = depositPool;
     }
 
@@ -46,12 +46,11 @@ public class VendingMachine implements IVendingMachine {
     @Override
     public void addCurrency(int amount) {
         boolean found = false;
-        amount += getBalance();
-        for (int i = 0; i < validAmountOfMoney.length; i++) {
-            if (validAmountOfMoney[i] == amount) {
-                setDepositPool(amount);
+        int currentBalance = getBalance();
+        for (int j : validAmountOfMoney) {
+            if (amount == j) {
+                setDepositPool(currentBalance + amount);
                 found = true;
-                break;
             }
         }
         String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 ";
@@ -66,12 +65,32 @@ public class VendingMachine implements IVendingMachine {
 
     @Override
     public Product request(int id) {
-        return null;
+        int totalBalance = getBalance();
+        Product newProd = null;
+        for (int i = 0; i < this.products.length; i++) {
+            if (this.products[i].getId() == id) {
+                if (totalBalance >= this.products[i].getPrice()) {
+
+                    setDepositPool(totalBalance -= this.products[i].getPrice());
+                    newProd = this.products[i];
+                } else {
+
+                    throw new ArithmeticException("You don't have enough balance you balance is:  " + getBalance());
+                }
+            }
+        }
+        //TODO CHECK Depositionthingi
+        return newProd;
     }
 
     @Override
     public int endSession() {
-        return 0;
+        setDepositPool(0);
+        if (getBalance() != 0) {
+            return getBalance();
+        }
+        setDepositPool(0);
+        return getBalance();
     }
 
     @Override

@@ -21,9 +21,13 @@ public class Main {
 
         vendingMachine.printAllProducts();
 
-        vendingMachine.addCurrency(10);
-        vendingMachine.addCurrency(30);
-
-
+        //Machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000
+//        vendingMachine.addCurrency(1000);
+        System.out.println(vendingMachine.getBalance());
+        vendingMachine.addCurrency(50);
+        System.out.println(vendingMachine.getBalance());
+        vendingMachine.request(2);
+        vendingMachine.endSession();
+        System.out.println(vendingMachine.getBalance());
     }
 }
