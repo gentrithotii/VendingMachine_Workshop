@@ -3,7 +3,7 @@ package org.example.interfaces;
 import org.example.model.Product;
 
 public interface IVendingMachine {
-    void addCurrency(double amount);
+    void addCurrency(int amount);
 
     int getBalance();
 
@@ -13,5 +13,5 @@ public interface IVendingMachine {
 
     String getDescription(int id);
 
-    Product[] getProducts();
+    String[] getProducts();
 }
