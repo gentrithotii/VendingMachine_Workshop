@@ -9,6 +9,10 @@ public class VendingMachineMenu {
     private int returnAmount;
     private String productItem;
 
+    public VendingMachineMenu() {
+        sc = new Scanner(System.in);
+    }
+
     public String getProductItem() {
         return productItem;
     }
@@ -23,10 +27,6 @@ public class VendingMachineMenu {
 
     public void setReturnAmount(int returnAmount) {
         this.returnAmount = returnAmount;
-    }
-
-    public VendingMachineMenu() {
-        sc = new Scanner(System.in);
     }
 
     public void setVendingMachine(VendingMachine vendingMachine) {
@@ -90,6 +90,10 @@ public class VendingMachineMenu {
         return sc.nextInt();
     }
 
+    private void resetProductChoice() {
+
+    }
+
     private int userMenuChoice() {
         System.out.print("Enter your choice: ");
         return sc.nextInt();
@@ -116,7 +120,7 @@ public class VendingMachineMenu {
                 printProductsToUser();
                 break;
             case 5:
-
+                setProductItem("");
                 break;
             case 0:
                 setReturnAmount(getVendingMachine().endSession());

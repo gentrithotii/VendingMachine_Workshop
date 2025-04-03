@@ -37,12 +37,6 @@ public class VendingMachine implements IVendingMachine {
         this.depositPool = depositPool;
     }
 
-//    public void printAllProducts() {
-//        for (Product product : this.products) {
-//            System.out.println(product);
-//        }
-//    }
-
     @Override
     public void addCurrency(int amount) {
         int currentBalance = getBalance();
