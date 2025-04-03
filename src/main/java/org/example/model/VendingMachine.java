@@ -37,12 +37,9 @@ public class VendingMachine implements IVendingMachine {
     }
 
     public void printAllProducts() {
-        int counter = 0;
         for (Product product : this.products) {
             System.out.println(product);
-            counter++;
         }
-        System.out.println("Number of things: " + counter);
     }
 
     @Override
@@ -55,9 +52,9 @@ public class VendingMachine implements IVendingMachine {
                 found = true;
             }
         }
-        String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 your current amount is: " + currentBalance;
+//        String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 your current amount is: " + currentBalance;
 
-        System.out.println(result);
+//        System.out.println(result);
     }
 
     @Override

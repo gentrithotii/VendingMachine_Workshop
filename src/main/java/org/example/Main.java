@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.model.Candy;
-import org.example.model.Snack;
-import org.example.model.Soda;
-import org.example.model.VendingMachine;
+import org.example.model.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,15 +16,17 @@ public class Main {
         vendingMachine.addProductsToMachine(candy);
         vendingMachine.addProductsToMachine(soda);
 
-        vendingMachine.printAllProducts();
+        VendingMachineMenu machineMenu = new VendingMachineMenu();
+        machineMenu.setVendingMachine(vendingMachine);
+        machineMenu.startMachineUi();
 
         //Machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000
 //        vendingMachine.addCurrency(1000);
-        System.out.println(vendingMachine.getBalance());
-        vendingMachine.addCurrency(50);
-        System.out.println(vendingMachine.getBalance());
-        vendingMachine.request(2);
-        vendingMachine.endSession();
-        System.out.println(vendingMachine.getBalance());
+//        System.out.println(vendingMachine.getBalance());
+//        vendingMachine.addCurrency(50);
+//        System.out.println(vendingMachine.getBalance());
+//        vendingMachine.request(2);
+//        vendingMachine.endSession();
+//        System.out.println(vendingMachine.getBalance());
     }
 }
