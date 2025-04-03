@@ -73,7 +73,7 @@ public class VendingMachine implements IVendingMachine {
             if (this.products[i].getId() == id) {
                 if (totalBalance >= this.products[i].getPrice()) {
 
-                    setDepositPool(totalBalance -= this.products[i].getPrice());
+                    setDepositPool(totalBalance -= (int) this.products[i].getPrice());
                     newProd = this.products[i];
                 } else {
 
