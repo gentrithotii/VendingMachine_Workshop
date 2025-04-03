@@ -2,6 +2,7 @@ package org.example.model;
 
 import org.example.interfaces.IVendingMachine;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class VendingMachine implements IVendingMachine {
@@ -36,11 +37,11 @@ public class VendingMachine implements IVendingMachine {
         this.depositPool = depositPool;
     }
 
-    public void printAllProducts() {
-        for (Product product : this.products) {
-            System.out.println(product);
-        }
-    }
+//    public void printAllProducts() {
+//        for (Product product : this.products) {
+//            System.out.println(product);
+//        }
+//    }
 
     @Override
     public void addCurrency(int amount) {
@@ -84,10 +85,10 @@ public class VendingMachine implements IVendingMachine {
     //TODO Checkoverthis
     @Override
     public int endSession() {
-        int oldBalance = getBalance();
+        int changeBalance = getBalance();
         setDepositPool(0);
-        if (oldBalance != 0) {
-            return oldBalance;
+        if (changeBalance != 0) {
+            return changeBalance;
         }
         return getBalance();
     }
@@ -104,6 +105,10 @@ public class VendingMachine implements IVendingMachine {
 
     @Override
     public String[] getProducts() {
-        return new String[0];
+        String[] stringProducts = new String[this.products.length];
+        for (int i = 0; i < this.products.length; i++) {
+            stringProducts[i] = this.products[i].toString();
+        }
+        return stringProducts;
     }
 }
