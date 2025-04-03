@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class VendingMachineMenu {
     private VendingMachine vendingMachine;
     private final Scanner sc;
-    boolean machineOn = true;
+    private boolean machineOn = true;
 
     public VendingMachineMenu() {
         sc = new Scanner(System.in);
@@ -26,10 +26,6 @@ public class VendingMachineMenu {
         }
     }
 
-    private void printItemsInMachine() {
-        getVendingMachine().printAllProducts();
-    }
-
     private void machineInfo() {
         System.out.println("The machine only takes these kind of money ( 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 ");
     }
@@ -38,20 +34,24 @@ public class VendingMachineMenu {
         return "Your current have : " + getVendingMachine().getBalance() + " money in the machine.";
     }
 
+    private void printProductsToUser() {
+        for (String products : getVendingMachine().getProducts()) {
+            System.out.println(products);
+        }
+    }
 
     private void printChoiceMenu() {
         System.out.println("1. Add money ");
         System.out.println("2. Request to buy with given id");
-        System.out.println("3. Get balance");
-        System.out.println("4. Buy the thing you wanted");
-        System.out.println("5. Print all products");
+        System.out.println("3. Buy the thing you wanted");
+        System.out.println("4. Print all products");
         System.out.println("0. Exit");
         System.out.println(" ");
         System.out.println(printCurrentBalance());
     }
 
     private int productToBuy() {
-        printItemsInMachine();
+        printProductsToUser();
         System.out.print("Enter the product you want to buy");
         return sc.nextInt();
     }
@@ -73,17 +73,13 @@ public class VendingMachineMenu {
             case 1:
                 getVendingMachine().addCurrency(addAmount());
                 break;
-
             case 2:
                 getVendingMachine().request(productToBuy());
                 break;
             case 3:
-                System.out.println(getVendingMachine().getBalance());
-                break;
-            case 4:
                 getVendingMachine().endSession();
-            case 5:
-                getVendingMachine().printAllProducts();
+            case 4:
+                printProductsToUser();
                 break;
             case 0:
                 machineOn = false;
