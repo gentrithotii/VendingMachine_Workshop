@@ -45,17 +45,12 @@ public class VendingMachine implements IVendingMachine {
 
     @Override
     public void addCurrency(int amount) {
-        boolean found = false;
         int currentBalance = getBalance();
         for (int j : validAmountOfMoney) {
             if (amount == j) {
                 setDepositPool(currentBalance + amount);
-                found = true;
             }
         }
-//        String result = found ? "The balance is: " + getBalance() : "Wrong Amount machine only accepts 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000 your current amount is: " + currentBalance;
-
-//        System.out.println(result);
     }
 
     @Override
@@ -74,7 +69,6 @@ public class VendingMachine implements IVendingMachine {
                     setDepositPool(totalBalance -= (int) this.products[i].getPrice());
                     newProd = this.products[i];
                 } else {
-
                     throw new ArithmeticException("You don't have enough balance you balance is:  " + getBalance());
                 }
             }
@@ -82,7 +76,6 @@ public class VendingMachine implements IVendingMachine {
         return newProd;
     }
 
-    //TODO Checkoverthis
     @Override
     public int endSession() {
         int changeBalance = getBalance();
