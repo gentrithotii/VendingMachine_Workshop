@@ -81,15 +81,15 @@ public class VendingMachine implements IVendingMachine {
                 }
             }
         }
-        //TODO CHECK Depositionthingi
         return newProd;
     }
 
+    //TODO Checkoverthis
     @Override
     public int endSession() {
         int oldBalance = getBalance();
         setDepositPool(0);
-        if (getBalance() != 0) {
+        if (oldBalance != 0) {
             return oldBalance;
         }
         return getBalance();
