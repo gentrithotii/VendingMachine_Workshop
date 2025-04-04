@@ -7,18 +7,18 @@ public class VendingMachineMenu {
     private final Scanner sc;
     private boolean machineOn = true;
     private int returnAmount;
-    private String productItem;
+    private Product productItem;
 
     public VendingMachineMenu() {
         sc = new Scanner(System.in);
     }
 
-    public String getProductItem() {
+    public Product getProductItem() {
         return productItem;
     }
 
-    public void setProductItem(String productItem) {
-        this.productItem = productItem;
+    public void setProductItem(Product productItem) {
+            this.productItem = productItem;
     }
 
     public int getReturnAmount() {
@@ -80,6 +80,7 @@ public class VendingMachineMenu {
     }
 
     private int productToBuy() {
+
         System.out.print("Enter the product id of the product you want to buy: ");
         return sc.nextInt();
     }
@@ -100,7 +101,7 @@ public class VendingMachineMenu {
     }
 
     private String printProductInCart() {
-        return getProductItem() == null || getProductItem().isEmpty() ? "No items in cart" : "This product is waiting to be purchased: " + getProductItem();
+        return getProductItem() == null ? "No items in cart" : "This product is waiting to be purchased: " + getProductItem();
     }
 
     private void vendingMachineMenu() {
@@ -110,17 +111,20 @@ public class VendingMachineMenu {
                 getVendingMachine().addCurrency(addAmount());
                 break;
             case 2:
+//                Product tempProd = getVendingMachine().request(productToBuy());
                 printProductsToUser();
-                setProductItem(getVendingMachine().request(productToBuy()).toString());
+                setProductItem(getVendingMachine().request(productToBuy()));
                 break;
             case 3:
-                setProductItem("");
+                setProductItem(null);
                 setReturnAmount(getVendingMachine().endSession());
+                break;
             case 4:
                 printProductsToUser();
                 break;
             case 5:
-                setProductItem("");
+                getVendingMachine().addCurrency((int) getProductItem().getPrice());
+                setProductItem(null);
                 break;
             case 0:
                 setReturnAmount(getVendingMachine().endSession());

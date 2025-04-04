@@ -58,14 +58,13 @@ public class VendingMachine implements IVendingMachine {
         Product newProd = null;
         for (int i = 0; i < this.products.length; i++) {
             if (this.products[i].getId() == id) {
-                if (totalBalance >= this.products[i].getPrice()) {
-
-                    setDepositPool(totalBalance -= (int) this.products[i].getPrice());
-                    newProd = this.products[i];
-                } else {
-                    throw new ArithmeticException("You don't have enough balance you balance is:  " + getBalance());
-                }
+                newProd = this.products[i];
             }
+        }
+        if (totalBalance >= newProd.getPrice()) {
+            setDepositPool((int) (totalBalance - newProd.getPrice()));
+        } else {
+            System.out.println("You don't have that amount your balance is " + getBalance());
         }
         return newProd;
     }
